@@ -11,6 +11,7 @@ user_guide_src/cilexer/dist/*
 user_guide_src/cilexer/pycilexer.egg-info/*
 assets/res/*
 assets/uploads/*
+!assets/res/logo_pmi.jpg
 
 #codeigniter 3
 application/logs/*
