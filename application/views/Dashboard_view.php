@@ -64,7 +64,6 @@
                   </div>
                   <div class="col-md-9 bagian-judul">
                     <h1>Dashboard Trackrecord Belanja</h1>
-                    <h2>vadywibdjbawiud</h2>
                   </div>
               </div>
               <div class="col-md-12">
