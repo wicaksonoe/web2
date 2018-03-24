@@ -53,7 +53,9 @@
 						<div class="panel-body">
               <div class="col-md-12">
                   <div class="col-md-3">
-                    <img alt="User Pic" src="<?php echo base_url(); ?>assets/res/logo_pmi.jpg" class="img-responsive center-block">
+                    <a href = "<?php echo base_url().'belanja'; ?>">
+                      <img alt="User Pic" src="<?php echo base_url(); ?>assets/res/logo_pmi.jpg" class="img-responsive center-block">
+                    </a>
                   </div>
                   <div class="col-md-9 bagian-judul">
                     <h1>Profile Keluarga <?php echo $nama_keluarga; ?></h1>
@@ -72,15 +74,23 @@
       						<div class="panel-body">
                     <h2>Belanja</h2>
                     <br>
-                    
-											<?php if (isset($message)){ 
-													 echo '<div class="alert alert-danger" role="alert">';
-													 foreach($message as $s){
-														 echo $s;
-													 }
-													 echo '</div>';
-												} ?>
-	
+
+											<?php
+                        if (validation_errors() == !NULL){
+                          echo '<div class="alert alert-danger" role="alert">'.validation_errors().'</div>';
+                        }
+
+                        if (isset($message)){
+  												echo '<div class="alert alert-danger" role="alert">';
+
+  												foreach($message as $s){
+  													echo $s;
+  												}
+
+  												echo '</div>';
+											  }
+                      ?>
+
                     <?php echo form_open(); ?>
                       <div class="form-group">
                         <?php echo form_label('Saldo Sisa','saldo_sisa'); ?>
@@ -88,11 +98,11 @@
                       </div>
                       <div class="form-group">
                         <?php echo form_label('Total Belanja','total_belanja'); ?>
-                        <input type="text" name="total_belanja" value="" class="form-control" id="total_belanja" placeholder="Total Belanja" required>
+                        <input type="text" name="total_belanja" value="" class="form-control" id="total_belanja" placeholder="Total Belanja">
                       </div>
                       <div class="form-group">
                         <?php echo form_label('Nama Toko','nama_toko'); ?>
-                        <input type="text" name="nama_toko" value="" class="form-control" id="nama_toko" placeholder="Nama Toko" required>
+                        <input type="text" name="nama_toko" value="" class="form-control" id="nama_toko" placeholder="Nama Toko">
                       </div>
                       <?php echo form_submit('checkout','Belanja','class="btn btn-primary"'); ?>
                     <?php echo form_close(); ?>

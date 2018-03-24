@@ -20,30 +20,27 @@ class Belanja_model  extends CI_Model  {
 	public function cek_data()
 	{
 
-		$query = $this->db->get_where('daftar', [
-								'userid' => $this->userid,
-							], 1);
-
-
+		$query = $this->db->get_where('daftar', [																		// |
+								'userid' => $this->userid,																			// | Check Available Userid
+							], 1);																														// |
 
 		if ($query->num_rows() == 1) {
-				$row = $query->row();
-				$this->nama_keluarga = $row->nama_keluarga;
-				$this->saldo_sisa = $row->saldo_sisa;
-				$this->datauserid = $row->userid;
-				return true;
+				$row = $query->row();																										// |
+				$this->nama_keluarga = $row->nama_keluarga;															// |
+				$this->saldo_sisa = $row->saldo_sisa;																		// | Set Nama Keluarga, Saldo, Userid
+				$this->datauserid = $row->userid;																				// |
+				return true;																														// |
 			} else {
-				$this->error_userid = 'User ID Tidak Ditemukan';
-				return false;
+				$this->error_userid = 'User ID Tidak Ditemukan';												// |
+				return false;																														// | IF Userid Not Available
 			}
-
 	}
 
 	public function update_saldo()
 	{
 		$saldo		= $this->saldo_sisa;
 		$belanja	= $this->total_belanja;
-		
+
 		if ($saldo - $belanja < 0)
 		{
       $return = array(
@@ -98,15 +95,15 @@ class Belanja_model  extends CI_Model  {
 		$nama_toko			= $this->nama_toko;
 		$jumlah_belanja	= $this->total_belanja;
 		$foto_nota			= $upload_nota['file']['file_name'];
-		
+
 		//Syntax to POST Record @ trackrecord
 		$sendrecord = "INSERT INTO `trackrecord` (`userid`, `nama_keluarga`, `nama_toko`, `tanggal`, `jumlah_belanja`, `foto_nota`) VALUES (".$userid.", '".$nama_keluarga."', '".$nama_toko."', now(), ".$jumlah_belanja.", '".$foto_nota."')";
 
 		$this->db->query($sendrecord);
-    
+
 		//Syntax to update Saldo Akhir and UPDATE Saldo Akhir @ daftar
    	$this->saldo_akhir = $this->saldo_sisa - $this->total_belanja;
-		
+
 		$update = "UPDATE `daftar` SET `saldo_sisa` =".$this->saldo_akhir." WHERE `userid` = ".$this->userid;
 
 		$this->db->query($update);
