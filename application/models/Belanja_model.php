@@ -108,4 +108,9 @@ class Belanja_model  extends CI_Model  {
 
 		$this->db->query($update);
 	}
+
+	public function user_cek()
+	{
+		return $this->db->get_where('trackrecord', array('userid' => $this->userid));
+	}
 }
