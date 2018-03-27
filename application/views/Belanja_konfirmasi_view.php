@@ -53,7 +53,9 @@
 						<div class="panel-body">
               <div class="col-md-12">
                   <div class="col-md-3">
-                    <img alt="User Pic" src="<?php echo base_url(); ?>assets/res/logo_pmi.jpg" class="img-responsive center-block">
+                    <a href = "<?php echo base_url().'belanja'; ?>">
+                      <img alt="User Pic" src="<?php echo base_url(); ?>assets/res/logo_pmi.jpg" class="img-responsive center-block">
+                    </a>
                   </div>
                   <div class="col-md-9 bagian-judul">
                     <h1>Profile Keluarga <?php echo $nama_keluarga; ?></h1>

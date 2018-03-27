@@ -61,18 +61,34 @@
                   </div>
               </div>
               <div class="col-md-6">
-                <div class="panel panel-default">
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h2 class="panel-title">Profile</h2>
+                  </div>
       						<div class="panel-body">
-                    <h2>Profile</h2>
+
                   </div>
                 </div>
               </div>
               <div class="col-md-6">
-                <div class="panel panel-default">
+                <div class="panel panel-primary">
+                  <div class="panel-heading">
+                    <h2 class="panel-title">Belanja</h2>
+                  </div>
       						<div class="panel-body">
-                    <h2>Belanja</h2>
-                    <br>
-                    <div style="color: red;"><?php echo (isset($message))? $message : ""; ?></div>
+                    <? if (validation_errors() == !NULL){ ?>
+                      <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <? echo validation_errors(); ?>
+                      </div>
+                    <? }
+                    if (isset($message)){ ?>
+                      <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <? foreach($message as $s){ echo $s;} ?>
+                      </div>
+                    <? } ?>
+
                     <?php echo form_open(); ?>
                       <div class="form-group">
                         <?php echo form_label('Saldo Sisa','saldo_sisa'); ?>
@@ -80,11 +96,11 @@
                       </div>
                       <div class="form-group">
                         <?php echo form_label('Total Belanja','total_belanja'); ?>
-                        <input type="text" name="total_belanja" value="" class="form-control" id="total_belanja" placeholder="Total Belanja" required>
+                        <input type="text" name="total_belanja" value="" class="form-control" id="total_belanja" placeholder="Total Belanja">
                       </div>
                       <div class="form-group">
                         <?php echo form_label('Nama Toko','nama_toko'); ?>
-                        <input type="text" name="nama_toko" value="" class="form-control" id="nama_toko" placeholder="Nama Toko" required>
+                        <input type="text" name="nama_toko" value="" class="form-control" id="nama_toko" placeholder="Nama Toko">
                       </div>
                       <?php echo form_submit('checkout','Belanja','class="btn btn-primary"'); ?>
                     <?php echo form_close(); ?>
@@ -92,9 +108,11 @@
                 </div>
               </div>
               <div class="col-md-12">
-                <div class="panel panel-default">
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h2 class="panel-title">History Belanja</h2>
+                  </div>
       						<div class="panel-body">
-                    <h2>History Belanja</h2>
                     <div class="table-responsive">
                       <table class="table table-bordered">
                         <thead>
@@ -105,17 +123,40 @@
                             <th>Tanggal Transaksi</th>
                             <th>Jumlah Transaksi</th>
                             <th>Nota</th>
+                            <th>Action</th>
                           </tr>
                         </thead>
 
                         <tbody>
+                              <!--                                        <tr>
+                                                                        <td>2</td>
+                                                                        <td>Kadek Ini</td>
+                                                                        <td>Toko Kelontong</td>
+                                                                        <td>12-12-2012</td>
+                                                                        <td>12.000</td>
+                                                                        <td>Nota</td>
+                                                                        <td>
+                                                                          <a href="" class="btn btn-warning btn-xs" type="button">
+                                                                            <span class="glyphicon glyphicon-pencil"></span>
+                                                                          </a>
+                                                                          <a href="" class="btn btn-danger btn-xs" type="button">
+                                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                                          </a>
+                                                                        </td>
+                                                                      </tr>     -->
                           <tr>
-                            <th>1</th>
-                            <th>Kadek Ini</th>
-                            <th>Toko Kelontong</th>
-                            <th>12-12-2012</th>
-                            <th>12.000</th>
-                            <th>Nota</th>
+                            <? $no = 1;
+                              foreach ($user_history as $u) {
+                                 echo '<td>'.$no++.'</td>';
+                                 echo '<td>'.$u->nama_keluarga.'</td>';
+                                 echo '<td>'.$u->nama_toko.'</td>';
+                                 echo '<td>'.$u->tanggal.'</td>';
+                                 echo '<td>'.$u->jumlah_belanja.'</td>';
+                                 echo '<td><img src='.base_url().'/assets/res/nota/'.$u->foto_nota.' class="img-responsive" style="max-width:150px;"></td>';
+                                 echo '<td>'.anchor('/edit/'.$u->userid, '<span class="glyphicon glyphicon-pencil"></span>', 'class="btn btn-warning btn-xs" type="button"').'   ';
+                                 echo anchor('/delete/'.$u->userid, '<span class="glyphicon glyphicon-trash"></span>', 'class="btn btn-danger btn-xs" type="button"').'</td>';
+                              }
+                             ?>
                           </tr>
                         </tbody>
                       </table>

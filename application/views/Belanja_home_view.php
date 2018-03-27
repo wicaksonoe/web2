@@ -53,7 +53,9 @@
 						<div class="panel-body">
               <div class="col-md-12">
                   <div class="col-md-3">
-                    <img alt="User Pic" src="<?php echo base_url(); ?>assets/res/logo_pmi.jpg" class="img-responsive center-block">
+                    <a href = "<?php echo base_url().'belanja'; ?>">
+                      <img alt="User Pic" src="<?php echo base_url(); ?>assets/res/logo_pmi.jpg" class="img-responsive center-block">
+                    </a>
                   </div>
                   <div class="col-md-9 bagian-judul">
                     <h1>Profile Keluarga</h1>
@@ -68,15 +70,16 @@
 
                     <?php echo form_open(); ?>
                       <div class="form-group" >
-
-                           <?php if (isset($erroruserid)){ 
-                               echo '<div class="alert alert-danger" role="alert">';
-                               echo $erroruserid;
-                               echo '</div>';
-                               } 
+                           <?php
+                            if (validation_errors() == !NULL){
+                              echo '<div class="alert alert-danger" role="alert">'.validation_errors().'</div>';
+                            }
+                            if (isset($erroruserid)){
+                              echo '<div class="alert alert-danger" role="alert">'.$erroruserid.'</div>';
+                            }
                           ?>
 
-                        <input type="text" name="userid" value="" class="form-control" id="userid" placeholder="Masukan User ID Yang Akan Dicari" style="text-align:center" required>
+                        <input type="text" name="userid" value="" class="form-control" id="userid" placeholder="Masukan User ID Yang Akan Dicari" style="text-align:center">
                       </div>
                       <?php echo form_submit('cari_data','Cari','class="btn btn-primary form-control"'); ?>
                     <?php echo form_close(); ?>

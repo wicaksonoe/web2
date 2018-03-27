@@ -27,11 +27,19 @@ class Belanja extends CI_Controller {
 
   public function index()
   {
+    // Form Validation set
+    $this->form_validation->set_rules('userid', 'User ID', 'required|numeric',
+          array('numeric'   => 'Kolom User ID Hanya Boleh Diisi Angka',
+                'required'  => 'Kolom User ID Tidak Boleh Kosong'
+          )
+    );
+
     $caridata = $this->input->post('cari_data');
-    if (isset($caridata)) {
+
+    if (isset($caridata) && $this->form_validation->run() == TRUE) {
 
       $userid = $this->input->post('userid');
-      
+
       $this->model->userid = $userid;
       if ($this->model->cek_data() == TRUE) {
         $direct = '/belanja/view/'.$userid;
@@ -48,8 +56,21 @@ class Belanja extends CI_Controller {
     }
   }
 
-	public function view($userid=NULL)
+	public function view($userid = NULL)
 	{
+    // Form validation rule
+    $this->form_validation->set_rules('total_belanja', '', 'required|numeric',
+          array('numeric'   => 'Kolom Total Belanja Hanya Boleh Diisi Angka',
+                'required'  => 'Kolom Total Belanja Tidak Boleh Kosong'
+          )
+    );
+    $this->form_validation->set_rules('nama_toko', '', 'required|alpha_dash|min_length[3]',
+          array('alpha_dash'  => 'Kolom Nama Toko Hanya Boleh Diisi Huruf dan Angka',
+                'required'    => 'Kolom Nama Toko Tidak Boleh Kosong',
+                'min_length'  => 'Kolom Nama Toko Minimal Berisi 3 Karakter'
+          )
+    );
+
     $this->model->userid = $userid;
 
     //declare variable for each button
@@ -57,10 +78,10 @@ class Belanja extends CI_Controller {
     $konfirmasi = $this->input->post('konfirmasi');
     $checkout   = $this->input->post('checkout');
     $batal      = $this->input->post('batal');
-    
+
     //after click Belanja
-    if (isset($checkout)) {
-      $this->checkout();
+    if (isset($checkout) && $this->form_validation->run() == TRUE) {
+        $this->checkout();
 
     //after click Konfirmasi
     }elseif (isset($konfirmasi)) {
@@ -68,12 +89,12 @@ class Belanja extends CI_Controller {
 
     //after click Batal
     }elseif (isset($batal)) {
-      $this->model->cek_data();
       redirect('/belanja/view/'.$this->model->userid);
 
     //firstload
     }else{
       if ($this->model->cek_data() == TRUE) {
+      /*
         $this->history();
         $output = $this->history->render();
         $errormessage = $this->session->flashdata('errormessage');
@@ -83,6 +104,15 @@ class Belanja extends CI_Controller {
           'nama_keluarga' => $this->model->nama_keluarga,
         ]);
         $this->load->view('Belanja_view_foot', $output);
+      */
+        //$errormessage = $this->session->flashdata('errormessage');
+        $array = array(
+          'message'       => $this->session->flashdata('errormessage'),
+          'data'          => $this->model->saldo_sisa,
+          'nama_keluarga' => $this->model->nama_keluarga,
+          'user_history'  => $this->Belanja_model->user_cek()->result()
+        );
+        $this->load->view('Belanja_view_s', $array);
       }else{
         $this->session->set_flashdata('erroruserid', $this->model->error_userid);
         redirect('belanja');
@@ -95,10 +125,10 @@ class Belanja extends CI_Controller {
     $this->model->cek_data();
     $this->model->total_belanja = $this->input->post('total_belanja');
     $this->model->nama_toko     = $this->input->post('nama_toko');
-		
+
 		$saldo = $this->model->saldo_sisa;
 		$belanja = $this->model->total_belanja;
-		
+
 		// Rule to check saldo first step.
 		if ($saldo - $belanja < 0){
 			$message = array('saldo' => 'Saldo tidak mencukupi !');
@@ -112,7 +142,6 @@ class Belanja extends CI_Controller {
       'nama_toko'     => $this->model->nama_toko,
     ]);
 		}
-
   }
 
   public function konfirmasi()
@@ -121,18 +150,18 @@ class Belanja extends CI_Controller {
     $this->model->total_belanja  = $this->input->post('total_belanja');
 		$this->model->nama_toko      = $this->input->post('nama_toko');
 		$this->model->cek_data();
-		
+
 		//SET Link
     $uploadnota  = $this->model->upload_nota();
     $updatesaldo = $this->model->update_saldo();
-		
+
     if ($updatesaldo['result'] == "success" && $uploadnota['result'] == "success")  //Check Function $upload_nota AND $uploadnota BOTH SUCCESS
     {   // IF TRUE
 			//Start Function update_record
-      $this->model->update_record($uploadnota);      
+      $this->model->update_record($uploadnota);
       redirect('/belanja/view/'.$this->model->userid);
 		}else{   // IF FALSE
-			//DELETE Uploaded Image		
+			//DELETE Uploaded Image
 			if($uploadnota['result'] == "success"){
 				$name = $uploadnota['file']['file_name'];
 				unlink('./assets/res/nota/'.$name);

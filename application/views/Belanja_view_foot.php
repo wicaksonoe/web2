@@ -18,13 +18,12 @@
     <script src="<?php echo base_url(); ?>assets/style/js/bootstrap.min.js"></script>
 
     <!-- Grocery CRUD required files -->
-    <?php
-    foreach($css_files as $file): ?>
+    <?php foreach($css_files as $file): ?>
       <link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
     <?php endforeach; ?>
     <?php foreach($js_files as $file): ?>
       <script src="<?php echo $file; ?>"></script>
     <?php endforeach; ?>
-    
+
   </body>
 </html>
