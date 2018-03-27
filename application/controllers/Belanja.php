@@ -94,7 +94,6 @@ class Belanja extends CI_Controller {
     //firstload
     }else{
       if ($this->model->cek_data() == TRUE) {
-<<<<<<< HEAD
         $array = array(
           'message'       => $this->session->flashdata('errormessage'),
           'data'          => $this->model->saldo_sisa,
@@ -102,27 +101,6 @@ class Belanja extends CI_Controller {
           'user_history'  => $this->Belanja_model->user_cek()->result()
         );
         $this->load->view('Belanja_view', $array);
-=======
-      /*
-        $this->history();
-        $output = $this->history->render();
-        $errormessage = $this->session->flashdata('errormessage');
-        $this->load->view('Belanja_view_head', [
-          'message'       => $errormessage,
-          'data'          => $this->model->saldo_sisa,
-          'nama_keluarga' => $this->model->nama_keluarga,
-        ]);
-        $this->load->view('Belanja_view_foot', $output);
-      */
-        //$errormessage = $this->session->flashdata('errormessage');
-        $array = array(
-          'message'       => $this->session->flashdata('errormessage'),
-          'data'          => $this->model->saldo_sisa,
-          'nama_keluarga' => $this->model->nama_keluarga,
-          'user_history'  => $this->Belanja_model->user_cek()->result()
-        );
-        $this->load->view('Belanja_view_s', $array);
->>>>>>> 57d62ac486929582f37e4675eae1bd6c23c09957
       }else{
         $this->session->set_flashdata('erroruserid', $this->model->error_userid);
         redirect('belanja');
