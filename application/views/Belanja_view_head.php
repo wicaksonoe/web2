@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Belanja</title>
+    <title>Halaman Belanja <?php echo $nama_keluarga?></title>
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url(); ?>assets/style/css/bootstrap.min.css" rel="stylesheet">
@@ -56,42 +56,46 @@
                     <img alt="User Pic" src="<?php echo base_url(); ?>assets/res/logo_pmi.jpg" class="img-responsive center-block">
                   </div>
                   <div class="col-md-9 bagian-judul">
-                    <h1>Profile Keluarga</h1>
+                    <h1>Profile Keluarga <?php echo $nama_keluarga; ?></h1>
                     <h1>dan Form Belanja</h1>
                   </div>
               </div>
-              <div class="col-md-12">
+              <div class="col-md-6">
                 <div class="panel panel-default">
-      						<div class="panel-body" style="text-align:center">
-                    <h2>Cari Data Penerima Bantuan</h2>
+      						<div class="panel-body">
+                    <h2>Profile</h2>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="panel panel-default">
+      						<div class="panel-body">
+                    <h2>Belanja</h2>
                     <br>
-
+                    
+											<?php if (isset($message)){ 
+													 echo '<div class="alert alert-danger" role="alert">';
+													 foreach($message as $s){
+														 echo $s;
+													 }
+													 echo '</div>';
+												} ?>
+	
                     <?php echo form_open(); ?>
-                      <div class="form-group" >
-
-                           <?php if (isset($erroruserid)){ 
-                               echo '<div class="alert alert-danger" role="alert">';
-                               echo $erroruserid;
-                               echo '</div>';
-                               } 
-                          ?>
-
-                        <input type="text" name="userid" value="" class="form-control" id="userid" placeholder="Masukan User ID Yang Akan Dicari" style="text-align:center" required>
+                      <div class="form-group">
+                        <?php echo form_label('Saldo Sisa','saldo_sisa'); ?>
+                        <input type="text" name="saldo_sisa" value=<?php if (isset($data)){echo number_format($data);}?> class="form-control" id="saldo_sisa" disabled>
                       </div>
-                      <?php echo form_submit('cari_data','Cari','class="btn btn-primary form-control"'); ?>
+                      <div class="form-group">
+                        <?php echo form_label('Total Belanja','total_belanja'); ?>
+                        <input type="text" name="total_belanja" value="" class="form-control" id="total_belanja" placeholder="Total Belanja" required>
+                      </div>
+                      <div class="form-group">
+                        <?php echo form_label('Nama Toko','nama_toko'); ?>
+                        <input type="text" name="nama_toko" value="" class="form-control" id="nama_toko" placeholder="Nama Toko" required>
+                      </div>
+                      <?php echo form_submit('checkout','Belanja','class="btn btn-primary"'); ?>
                     <?php echo form_close(); ?>
                   </div>
                 </div>
-          </div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="<?php echo base_url(); ?>assets/style/js/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="<?php echo base_url(); ?>assets/style/js/bootstrap.min.js"></script>
-  </body>
-</html>
+              </div>
