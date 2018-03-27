@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Belanja</title>
+    <title>Upload View</title>
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url(); ?>assets/style/css/bootstrap.min.css" rel="stylesheet">
@@ -60,29 +60,20 @@
                     <h1>dan Form Belanja</h1>
                   </div>
               </div>
-              <div class="col-md-12">
+              <div class="col-md-6 col-md-offset-3" style="align-center">
                 <div class="panel panel-default">
-      						<div class="panel-body" style="text-align:center">
-                    <h2>Cari Data Penerima Bantuan</h2>
-                    <br>
-
-                    <?php echo form_open(); ?>
-                      <div class="form-group" >
-
-                           <?php if (isset($erroruserid)){ 
-                               echo '<div class="alert alert-danger" role="alert">';
-                               echo $erroruserid;
-                               echo '</div>';
-                               } 
-                          ?>
-
-                        <input type="text" name="userid" value="" class="form-control" id="userid" placeholder="Masukan User ID Yang Akan Dicari" style="text-align:center" required>
+      						<div class="panel-body">
+                    <div style="color: red;"><?php echo (isset($message))? $message : ""; ?></div>
+                    <?php echo form_open("upload/doupload", array('enctype'=>'multipart/form-data')); ?>
+                      <div class="form-group">
+                        <?php echo form_label('Upload Foto','upload_foto') ?>
+                        <input type="file" name="upload_foto">
                       </div>
-                      <?php echo form_submit('cari_data','Cari','class="btn btn-primary form-control"'); ?>
+                      <?php echo form_submit('upload','Upload','class="btn btn-primary"') ?>
                     <?php echo form_close(); ?>
                   </div>
                 </div>
-          </div>
+              </div>
 						</div>
 					</div>
 				</div>

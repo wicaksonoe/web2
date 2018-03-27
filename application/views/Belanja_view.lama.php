@@ -95,31 +95,7 @@
                 <div class="panel panel-default">
       						<div class="panel-body">
                     <h2>History Belanja</h2>
-                    <div class="table-responsive">
-                      <table class="table table-bordered">
-                        <thead>
-                          <tr>
-                            <th>No.</th>
-                            <th>Nama Keluarga</th>
-                            <th>Nama Toko</th>
-                            <th>Tanggal Transaksi</th>
-                            <th>Jumlah Transaksi</th>
-                            <th>Nota</th>
-                          </tr>
-                        </thead>
-
-                        <tbody>
-                          <tr>
-                            <th>1</th>
-                            <th>Kadek Ini</th>
-                            <th>Toko Kelontong</th>
-                            <th>12-12-2012</th>
-                            <th>12.000</th>
-                            <th>Nota</th>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
+                    <?php echo $historyoutput; ?>
                   </div>
                 </div>
               </div>
