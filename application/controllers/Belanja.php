@@ -94,15 +94,13 @@ class Belanja extends CI_Controller {
     //firstload
     }else{
       if ($this->model->cek_data() == TRUE) {
-        $this->history();
-        $output = $this->history->render();
-        $errormessage = $this->session->flashdata('errormessage');
-        $this->load->view('Belanja_view_head', [
-          'message'       => $errormessage,
+        $array = array(
+          'message'       => $this->session->flashdata('errormessage'),
           'data'          => $this->model->saldo_sisa,
           'nama_keluarga' => $this->model->nama_keluarga,
-        ]);
-        $this->load->view('Belanja_view_foot', $output);
+          'user_history'  => $this->Belanja_model->user_cek()->result()
+        );
+        $this->load->view('Belanja_view', $array);
       }else{
         $this->session->set_flashdata('erroruserid', $this->model->error_userid);
         redirect('belanja');
@@ -164,36 +162,5 @@ class Belanja extends CI_Controller {
       $this->session->set_flashdata('errormessage', $error_array);
       redirect('/belanja/view/'.$this->model->userid);
     }
-  }
-
-  public function history()
-  {
-    $userid = $this->model->userid;
-
-    $this->history = new grocery_CRUD();
-
-    $crud = $this->history;
-
-    $crud->set_table('trackrecord');
-
-    $crud->set_theme('flexigrid');
-
-		$crud->display_as('Userid', 'User ID');
-		$crud->display_as('nama_keluarga', 'Kepala Keluarga');
-		$crud->display_as('nama_toko','Nama Toko');
-		$crud->display_as('jumlah_belanja','Jumlah Belanja');
-		$crud->display_as('foto_nota','Foto Nota');
-    $crud->callback_read_field('foto_nota', function ($value , $primary_key){
-      $home = base_url();
-      return '<img src="'.$home.'/assets/res/nota/'. $value .'" width = 200>';
-    });
-
-		$crud->set_field_upload('foto_nota','assets/res/nota');
-
-    $crud->where('userid', $userid);
-
-		$crud->unset_add();
-		$crud->unset_edit();
-		$crud->unset_delete();
   }
 }
