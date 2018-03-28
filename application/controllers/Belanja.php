@@ -163,4 +163,9 @@ class Belanja extends CI_Controller {
       redirect('/belanja/view/'.$this->model->userid);
     }
   }
+
+  public function ujicoba()
+  {
+    $this->load->view('Belanja_mg_home_view');
+  }
 }
