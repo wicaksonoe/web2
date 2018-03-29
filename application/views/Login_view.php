@@ -33,7 +33,7 @@
       }
     </style>
 
-    <title>Cari Data</title>
+    <title>Login</title>
   </head>
   <body>
     <div class="container" style="padding-top:15px">
