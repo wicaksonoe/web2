@@ -41,7 +41,7 @@
         <div class="card-body">
           <div class="row justify-content-center align-items-center">
             <div class="col-sm-6">
-              <img class="d-block mx-auto" style="max-height:250px" src="<? echo base_url(); ?>/assets/res/logo_pmi.jpg">
+              <img class="d-block mx-auto" style="max-height:250px" src="<?php echo base_url(); ?>/assets/res/logo_pmi.jpg">
             </div>
             <div class="col-sm-6">
               <h2 class="d-block mx-auto bagian-judul">Selamat Datang Di Web Portal Data Pengungsian Gn. Agung</h2>

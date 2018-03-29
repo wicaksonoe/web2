@@ -42,7 +42,7 @@
         <div class="card-body">
           <div class="row justify-content-center align-items-center">
             <div class="col-sm-6">
-              <img class="d-block mx-auto" style="max-height:250px" src="<? echo base_url(); ?>/assets/res/logo_pmi.jpg">
+              <img class="d-block mx-auto" style="max-height:250px" src="<?php echo base_url(); ?>/assets/res/logo_pmi.jpg">
             </div>
             <div class="col-sm-6">
               <h1 class="d-block mx-auto bagian-judul h1">Profile dan Form Belanja</h1>
@@ -125,7 +125,7 @@
                             echo '<td class="align-middle">'.$u->nama_toko.'</td>';
                             echo '<td class="align-middle">'.$u->tanggal.'</td>';
                             echo '<td class="align-middle">'.$u->jumlah_belanja.'</td>';
-                            echo '<td class="align-middle">'.anchor('/data/view/'.$u->id, '<span class="fas fa-eye"></span>', 'class="btn btn-info btn-sm"').'</td>';
+                            echo '<td class="align-middle">'.anchor('/belanja/details/'.$u->id, '<span class="fas fa-eye"></span>', 'class="btn btn-info btn-sm"').'</td>';
                             echo '</tr>';
                           }
                          ?>

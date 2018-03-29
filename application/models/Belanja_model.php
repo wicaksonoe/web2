@@ -10,6 +10,7 @@ class Belanja_model  extends CI_Model  {
 	public $error_userid;
 	public $nama_toko;
 	public $datauserid;
+	public $notaid;
 
 	public function __construct()
     {
@@ -109,8 +110,13 @@ class Belanja_model  extends CI_Model  {
 		$this->db->query($update);
 	}
 
-	public function user_cek()
+	public function cek_user()
 	{
 		return $this->db->get_where('trackrecord', array('userid' => $this->userid));
+	}
+
+	public function cek_nota()
+	{
+		return $this->db->get_where('trackrecord', array('id' => $this->notaid));
 	}
 }
