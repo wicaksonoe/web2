@@ -9,9 +9,10 @@ user_guide_src/build/*
 user_guide_src/cilexer/build/*
 user_guide_src/cilexer/dist/*
 user_guide_src/cilexer/pycilexer.egg-info/*
-assets/res/*
+assets/res/nota/*
 assets/uploads/*
-!assets/res/logo_pmi.jpg
+!assets/res/nota/index.html
+!assets/res/index.html
 
 #codeigniter 3
 application/logs/*
