@@ -21,8 +21,6 @@ class Belanja extends CI_Controller {
     //use to flush model array
     $this->model = $this->Belanja_model;
 
-    // Load grocery_CRUD
-    $this->load->library('grocery_CRUD');
   }
 
   public function index()
@@ -52,7 +50,7 @@ class Belanja extends CI_Controller {
     //Load First
     }else{
       $erroruserid = $this->session->flashdata('erroruserid');
-      $this->load->view('Belanja_home_view', ['erroruserid' => $erroruserid]);
+      $this->load->view('belanja/Belanja_home_view', ['erroruserid' => $erroruserid]);
     }
   }
 
@@ -98,9 +96,9 @@ class Belanja extends CI_Controller {
           'message'       => $this->session->flashdata('errormessage'),
           'data'          => $this->model->saldo_sisa,
           'nama_keluarga' => $this->model->nama_keluarga,
-          'user_history'  => $this->Belanja_model->user_cek()->result()
+          'user_history'  => $this->Belanja_model->cek_user()->result()
         );
-        $this->load->view('Belanja_view', $array);
+        $this->load->view('belanja/Belanja_view', $array);
       }else{
         $this->session->set_flashdata('erroruserid', $this->model->error_userid);
         redirect('belanja');
@@ -123,7 +121,7 @@ class Belanja extends CI_Controller {
 			$this->session->set_flashdata('errormessage', $message);
       redirect('belanja/view/'.$this->model->userid);
 		}else{
-	    $this->load->view('Belanja_konfirmasi_view', [
+	    $this->load->view('belanja/Belanja_konfirmasi_view', [
       'data_saldo'    => $this->model->saldo_sisa,
       'data_belanja'  => $this->model->total_belanja,
       'nama_keluarga' => $this->model->nama_keluarga,
@@ -164,8 +162,17 @@ class Belanja extends CI_Controller {
     }
   }
 
-  public function ujicoba()
+  public function details($notaid = NULL)
   {
-    $this->load->view('Belanja_mg_home_view');
+    $this->Belanja_model->notaid = $notaid;
+
+    $kembali = $this->input->post('kembali');
+
+    if ($this->Belanja_model->cek_nota()->result() == !NULL){
+      $this->load->view('belanja/Belanja_nota_view',['nota' => $this->Belanja_model->cek_nota()->row()]);
+    }else{
+      $this->session->set_flashdata('erroruserid', 'Data Yang Anda Cari Tidak Dapat Ditemukan');
+      redirect('belanja'.$this->Belanja_model->userid);
+    }
   }
 }

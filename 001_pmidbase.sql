@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 13, 2018 at 03:43 AM
+-- Generation Time: Mar 29, 2018 at 07:51 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -19,8 +19,24 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `fix`
+-- Database: `001_pmidbase`
 --
+CREATE DATABASE IF NOT EXISTS `001_pmidbase` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `001_pmidbase`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ci_sessions`
+--
+
+CREATE TABLE `ci_sessions` (
+  `no` int(11) NOT NULL,
+  `id` varchar(128) NOT NULL,
+  `ip_address` varchar(45) NOT NULL,
+  `timestamp` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `data` blob NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -39,33 +55,8 @@ CREATE TABLE `daftar` (
 --
 
 INSERT INTO `daftar` (`userid`, `nama_keluarga`, `saldo_sisa`) VALUES
-(1, 'Komang kalis', 35000),
-(2, 'Kadek Budi', 630000);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `gambar`
---
-
-CREATE TABLE `gambar` (
-  `id` int(11) NOT NULL,
-  `deskripsi` varchar(100) NOT NULL,
-  `nama_file` varchar(100) NOT NULL,
-  `ukuran_file` double NOT NULL,
-  `tipe_file` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `gambar`
---
-
-INSERT INTO `gambar` (`id`, `deskripsi`, `nama_file`, `ukuran_file`, `tipe_file`) VALUES
-(1, '', '526aecbffda6fd02fbc1e7b522474bfe.PNG', 80.14, 'image/png'),
-(2, '', '630e46f4ac9ace121ac49ebf60c4cf98.PNG', 54.64, 'image/png'),
-(3, '', '74108f08b64c191a3baa15053c0ee129.PNG', 54.64, 'image/png'),
-(4, '', '8a52dc6dc2f2e38e79c9cbb74cfbd226.jpg', 1305.65, 'image/jpeg'),
-(5, '', '7fbcaafc80da223b1027db3943450b0a.jpg', 1305.65, 'image/jpeg');
+(1, 'Komang Kalis', 2000000),
+(2, 'Kadek Budi', 2000000);
 
 -- --------------------------------------------------------
 
@@ -82,16 +73,6 @@ CREATE TABLE `trackrecord` (
   `jumlah_belanja` int(11) NOT NULL,
   `foto_nota` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `trackrecord`
---
-
-INSERT INTO `trackrecord` (`id`, `userid`, `nama_keluarga`, `nama_toko`, `tanggal`, `jumlah_belanja`, `foto_nota`) VALUES
-(1, 2, '', 'Sri Rejeki', '2018-02-08', 5000, ''),
-(2, 2, 'Kadek Budi', 'Laju Terus', '2018-02-08', 5000, 'bf6117d12101cfaff735fc803481c283.jpg'),
-(3, 2, 'Kadek Budi', 'sadadas', '2018-02-18', 4000, '673d7cf61d2361c4849c6ad17b57e3ff.PNG'),
-(4, 2, 'Kadek Budi', 'byuy', '2018-02-18', 6000, '2c9a6fc87ef7c58b10c333c971829b78.jpg');
 
 -- --------------------------------------------------------
 
@@ -117,16 +98,17 @@ INSERT INTO `users` (`id`, `username`, `password`) VALUES
 --
 
 --
+-- Indexes for table `ci_sessions`
+--
+ALTER TABLE `ci_sessions`
+  ADD PRIMARY KEY (`no`),
+  ADD KEY `ci_sessions_timestamp` (`timestamp`);
+
+--
 -- Indexes for table `daftar`
 --
 ALTER TABLE `daftar`
   ADD PRIMARY KEY (`userid`);
-
---
--- Indexes for table `gambar`
---
-ALTER TABLE `gambar`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `trackrecord`
@@ -145,22 +127,22 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `ci_sessions`
+--
+ALTER TABLE `ci_sessions`
+  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `daftar`
 --
 ALTER TABLE `daftar`
   MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `gambar`
---
-ALTER TABLE `gambar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
 -- AUTO_INCREMENT for table `trackrecord`
 --
 ALTER TABLE `trackrecord`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
